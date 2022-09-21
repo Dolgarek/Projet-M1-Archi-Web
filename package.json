@@ -1,0 +1,21 @@
+{
+  "name": "e1",
+  "version": "1.0.0",
+  "description": "Projet Architecture web M1",
+  "main": "monserver.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node monserver.js",
+    "dev": "nodemon monserver.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.0.2",
+    "express": "^4.18.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
