@@ -1,0 +1,35 @@
+
+<div class="container vh-100 d-flex align-items-center justify-content-around">
+  <div class="row">
+    <div class="col-12 d-flex justify-content-center border border-black rounded bg-success p-2 text-white bg-opacity-75">
+      <div class="col-12 col-lg-6 p-1 p-md-2">
+        <h1 class="text-center">CERISoNet</h1>
+        <form>
+          <div class="mb-3 row">
+            <div class="col-8 offset-2 col-md-12 offset-md-0">
+              <label for="formUsername" class="form-label">Username</label>
+              <input [(ngModel)]="username" type="text" class="form-control" id="formUsername" name="username" aria-describedby="emailHelp">
+            </div>
+          </div>
+          <div class="mb-3 row">
+            <div class="col-8 offset-2 col-md-12 offset-md-0">
+              <label for="formPassword" class="form-label">Mot de passe</label>
+              <input [(ngModel)]="password" type="password" class="form-control" id="formPassword" name="password">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-8 col-sm-6 offset-2 offset-md-0 my-2 my-md-0">
+              <button (click)="onSubmit()" class="btn btn-primary">Se connecter</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="col-lg-6 d-flex justify-content-center"><img src="assets/img/earth-logo-removebg-preview.png" class="img-fluid w-75 py-3" alt="..."></div>
+    </div>
+    <div class="col-12 ocean">
+      <div class="wave"></div>
+      <div class="wave"></div>
+      <div class="wave"></div>
+    </div>
+  </div>
+</div>
