@@ -30,7 +30,7 @@ export class UserDAO {
 
     async getLoggedUser() {
         const db = await UserDB.open();
-        let query = "SELECT * FROM fredouil.users WHERE statu= 1 ORDER BY UPPER(identifiant) ASC;";
+        let query = "SELECT * FROM fredouil.users WHERE statut_connexion= 1 ORDER BY UPPER(identifiant) ASC;";
         const res = await db.query({text: query});
         let userArr = [];
         if (res !== undefined && res.rows !== undefined) {
@@ -44,7 +44,7 @@ export class UserDAO {
 
     async setStatus(id, status) {
         const db = await UserDB.open();
-        let query = {text: 'UPDATE fredouil.users SET statu=$1 WHERE id=$2;', values: [status, id]};
+        let query = {text: 'UPDATE fredouil.users SET statut_connexion=$1 WHERE id=$2;', values: [status, id]};
         return await db.query(query);
     }
 
