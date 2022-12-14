@@ -5,7 +5,7 @@ import crypto from "crypto";
 export class UserDAO {
     async find() {
         const db = await UserDB.open();
-        const res = await db.query({text: "SELECT * FROM users;"});
+        const res = await db.query({text: "SELECT * FROM fredouil.users;"});
         let userArr = [];
         if (res !== undefined && res.rows !== undefined) {
             res.rows.forEach(user => {
@@ -17,7 +17,7 @@ export class UserDAO {
 
     async findByUsername(username) {
         const db = await UserDB.open();
-        let query = "SELECT * FROM users WHERE identifiant = '" + username + "';";
+        let query = "SELECT * FROM fredouil.users WHERE identifiant = '" + username + "';";
         const res = await db.query({text: query});
         let userArr = [];
         if (res !== undefined && res.rows !== undefined) {
@@ -30,7 +30,7 @@ export class UserDAO {
 
     async getLoggedUser() {
         const db = await UserDB.open();
-        let query = "SELECT * FROM users WHERE status = 1 ORDER BY UPPER(identifiant) ASC;";
+        let query = "SELECT * FROM fredouil.users WHERE status = 1 ORDER BY UPPER(identifiant) ASC;";
         const res = await db.query({text: query});
         let userArr = [];
         if (res !== undefined && res.rows !== undefined) {
@@ -44,7 +44,7 @@ export class UserDAO {
 
     async setStatus(id, status) {
         const db = await UserDB.open();
-        let query = {text: 'UPDATE users SET status=$1 WHERE id=$2;', values: [status, id]};
+        let query = {text: 'UPDATE fredouil.users SET status=$1 WHERE id=$2;', values: [status, id]};
         return await db.query(query);
     }
 
@@ -65,7 +65,7 @@ export class UserDAO {
         const encryptedPassword = crypto.createHash("sha1").update(password).digest("hex");
         const db = await UserDB.open();
         const res = await db.query({
-            text: 'SELECT * FROM users WHERE identifiant = $1 AND motpasse = $2;',
+            text: 'SELECT * FROM fredouil.users WHERE identifiant = $1 AND motpasse = $2;',
             values: [username, encryptedPassword]
         });
         if (res !== undefined && res.rows[0] !== undefined) {

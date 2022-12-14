@@ -79,10 +79,10 @@ export class CeriFeedComponent implements OnInit {
 
   setUp(): void {
     try {
-      this.httpClient.post('https://localhost:3223/Users', {}, this.options).subscribe((res1 :any) => {
+      this.httpClient.post('https://pedago.univ-avignon.fr:3223/Users', {}, this.options).subscribe((res1 :any) => {
         res1.forEach((el1: { _username: string; }) => this.users.push(el1._username));
         console.log(this.users);
-        this.httpClient.post('https://localhost:3223/Posts', {}, this.options).subscribe((res2: any) => {
+        this.httpClient.post('https://pedago.univ-avignon.fr:3223/Posts', {}, this.options).subscribe((res2: any) => {
           this.posts = res2;
           this.numberOfPages = this.posts.length;
           this.filteredSearch = false;
@@ -121,7 +121,7 @@ export class CeriFeedComponent implements OnInit {
 
   getPost(username: string): void {
     try {
-      this.httpClient.post('https://localhost:3223/Posts', {_username: username}, this.options).subscribe((res: any) => {
+      this.httpClient.post('https://pedago.univ-avignon.fr:3223/Posts', {_username: username}, this.options).subscribe((res: any) => {
         this.posts = res;
         this.collapsed = [];
         this.collapsedRepost = [];
@@ -161,7 +161,7 @@ export class CeriFeedComponent implements OnInit {
 
   getPostByHashtag(hashtag: string): void {
     try {
-      this.httpClient.post('https://localhost:3223/Posts', {_hashtags: hashtag}, this.options).subscribe((res: any) => {
+      this.httpClient.post('https://pedago.univ-avignon.fr:3223/Posts', {_hashtags: hashtag}, this.options).subscribe((res: any) => {
         this.posts = res;
         this.collapsed = [];
         this.collapsedRepost = [];
@@ -262,7 +262,7 @@ export class CeriFeedComponent implements OnInit {
     console.log(commentVal);
     // @ts-ignore
     console.log(JSON.parse(localStorage.getItem('authData'))._id);
-    this.httpClient.post('https://localhost:3223/addComment', {comment: commentVal, id: _id}, this.options).subscribe((res: any) => {
+    this.httpClient.post('https://pedago.univ-avignon.fr:3223/addComment', {comment: commentVal, id: _id}, this.options).subscribe((res: any) => {
       console.log(res);
       if (res.modifiedCount && res.modifiedCount > 0) {
         //Ne redraw pas le rendu update seulement la taille
@@ -287,7 +287,7 @@ export class CeriFeedComponent implements OnInit {
   likePost(_id: any, value: any, $event: any) {
     console.log($event);
     if (this.liked.findIndex((element: { _id: any; }) => element._id === _id) === -1) {
-      this.httpClient.post('https://localhost:3223/updateLikes', {id: _id, incr: true}, this.options).subscribe((res: any) => {
+      this.httpClient.post('https://pedago.univ-avignon.fr:3223/updateLikes', {id: _id, incr: true}, this.options).subscribe((res: any) => {
         console.log(res);
         if (res.modifiedCount && res.modifiedCount > 0) {
           $event.srcElement.style.color = "red";
@@ -301,7 +301,7 @@ export class CeriFeedComponent implements OnInit {
     }
     else {
       if (this.liked[this.liked.findIndex((element: { _id: any; }) => element._id === _id)].incr) {
-        this.httpClient.post('https://localhost:3223/updateLikes', {id: _id, incr: false}, this.options).subscribe((res: any) => {
+        this.httpClient.post('https://pedago.univ-avignon.fr:3223/updateLikes', {id: _id, incr: false}, this.options).subscribe((res: any) => {
           console.log(res);
           if (res.modifiedCount && res.modifiedCount > 0) {
             $event.srcElement.style.color = "black";
@@ -314,7 +314,7 @@ export class CeriFeedComponent implements OnInit {
         });
       }
       else {
-        this.httpClient.post('https://localhost:3223/updateLikes', {id: _id, incr: true}, this.options).subscribe((res: any) => {
+        this.httpClient.post('https://pedago.univ-avignon.fr:3223/updateLikes', {id: _id, incr: true}, this.options).subscribe((res: any) => {
           console.log(res);
           if (res.modifiedCount && res.modifiedCount > 0) {
             $event.srcElement.style.color = "red";
@@ -436,7 +436,7 @@ export class CeriFeedComponent implements OnInit {
     let tags = tag.split(" ").filter(t => t.charAt(0) === '#');
 
     // @ts-ignore
-    this.httpClient.post('https://localhost:3223/createRepost', {
+    this.httpClient.post('https://pedago.univ-avignon.fr:3223/createRepost', {
       postId: _id,
       // @ts-ignore
       userId: JSON.parse(localStorage.getItem('authData'))._id,

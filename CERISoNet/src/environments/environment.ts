@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  url: 'https://localhost:3223'
+  url: 'https://pedago.univ-avignon.fr:3223'
 };
 
 /*

@@ -17,7 +17,7 @@ export class AuthService {
   //login method, if res is ok then proceed to store data in local storage and notify user if not notify user with error message
   login(username: string, password: string) {
     try {
-      this.httpClient.post('https://localhost:3223/login', {username: username, password: password}).subscribe(
+      this.httpClient.post('https://pedago.univ-avignon.fr:3223/login', {username: username, password: password}).subscribe(
         (res: any) => {
           //Set data and token. In future version must remove data as it shouldd not be stored clear like that
           localStorage.setItem("authData", JSON.stringify(res.data));
@@ -54,7 +54,7 @@ export class AuthService {
       // @ts-ignore
       const authData = JSON.parse(await localStorage.getItem('authData'));
       // @ts-ignore
-      this.httpClient.post('https://localhost:3223/logout', {id: authData._id}, this.options).subscribe( (res: any) => {
+      this.httpClient.post('https://pedago.univ-avignon.fr:3223/logout', {id: authData._id}, this.options).subscribe( (res: any) => {
       })
       localStorage.removeItem("authData");
       localStorage.removeItem("authDataToken");

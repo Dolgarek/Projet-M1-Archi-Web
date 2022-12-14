@@ -16,7 +16,7 @@ import {mongoSession} from "./src/database/mongoSession.js";
 import {Server} from "socket.io";
 
 //Import config from .env file
-dotenv.config({path: `.env.${process.env.NODE_ENV}`});
+dotenv.config({path: `.env`});
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

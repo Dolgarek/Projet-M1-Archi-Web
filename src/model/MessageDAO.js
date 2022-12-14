@@ -25,7 +25,7 @@ export default class MessageDAO {
             }]
         });
 
-        this.Message = mongoose.model("Message", messageSchema, "tPosts");
+        this.Message = mongoose.model("Message", messageSchema, "CERISoNet");
     }
 
     async getPost() {
