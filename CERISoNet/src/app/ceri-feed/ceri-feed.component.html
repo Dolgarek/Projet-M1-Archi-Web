@@ -31,6 +31,8 @@
       <div class="col-1 d-flex align-items-center"><fa-icon [icon]="faTrashCan" size="xl" [styles]="{'color': 'white'}" (click)="cancelFilter()"></fa-icon></div>
     </div>
   </div>
+
+
   <div class="d-none d-xl-block col-1"></div>
   <div class="col-12 col-xl-5 bg-dark rounded py-1 py-md-2 px-4 ms-xm-5 me-xl-2 mt-xl-0 mt-2">
     <div class="row">
@@ -57,6 +59,8 @@
     </div>
   </div>
 </div>
+
+
 <div class="row mt-3">
   <div class="col-6 offset-3 d-flex justify-content-around">
     <ngb-pagination
@@ -67,6 +71,8 @@
     </ngb-pagination>
   </div>
 </div>
+
+
 <div class="container-fluid">
   <div class="row mb-5 mt-2" *ngFor="let message of posts | slice: (page-1) * itemPerPage : (page-1) * itemPerPage + itemPerPage; let indexOfelement=index;">
     <div class="col-6 col-md-8 offset-3 offset-md-2">
@@ -136,9 +142,13 @@
               <div class="row">
                 <div class="col-12">
                   <p>Repost</p>
+                  <p>Message</p>
                   <input #inputBody style="width: 100%;"/>
+                  <p>Url image</p>
                   <input #inputUrl style="width: 100%;"/>
+                  <p>Alt image</p>
                   <input #inputTitle style="width: 100%;"/>
+                  <p>Hashtags</p>
                   <input #inputTags style="width: 100%;"/>
                   <button href="#" class="btn btn-primary mt-2" (click)="createRepost(inputBody.value, inputUrl.value, inputTitle.value, inputTags.value, message._id)">Envoyer</button>
                 </div>
