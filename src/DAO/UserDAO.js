@@ -5,15 +5,47 @@ import crypto from "crypto";
 export class UserDAO {
     async find() {
         const db = await UserDB.open();
-        const res = await db.query({text: "SELECT * FROM utilisateurs;"});
+        const res = await db.query({text: "SELECT * FROM users;"});
         let userArr = [];
         if (res !== undefined && res.rows !== undefined) {
-            console.log(res)
             res.rows.forEach(user => {
-                userArr.push(new User(user.id, user.identifiant, user.pass, user.nom, user.prenom, user.avatar, user.status, user.birthday));
+                userArr.push(new User(user.id, user.identifiant, user.motpasse, user.nom, user.prenom, user.avatar, user.status, user.birthday));
             });
         }
         return userArr;
+    }
+
+    async findByUsername(username) {
+        const db = await UserDB.open();
+        let query = "SELECT * FROM users WHERE identifiant = '" + username + "';";
+        const res = await db.query({text: query});
+        let userArr = [];
+        if (res !== undefined && res.rows !== undefined) {
+            res.rows.forEach(user => {
+                userArr.push(new User(user.id, user.identifiant, user.motpasse, user.nom, user.prenom, user.avatar, user.status, user.birthday));
+            });
+        }
+        return userArr[0];
+    }
+
+    async getLoggedUser() {
+        const db = await UserDB.open();
+        let query = "SELECT * FROM users WHERE status = 1 ORDER BY UPPER(identifiant) ASC;";
+        const res = await db.query({text: query});
+        let userArr = [];
+        if (res !== undefined && res.rows !== undefined) {
+            res.rows.forEach(user => {
+                userArr.push(new User(user.id, user.identifiant, user.motpasse, user.nom, user.prenom, user.avatar, user.status, user.birthday));
+            });
+        }
+        console.log(userArr)
+        return userArr;
+    }
+
+    async setStatus(id, status) {
+        const db = await UserDB.open();
+        let query = {text: 'UPDATE users SET status=$1 WHERE id=$2;', values: [status, id]};
+        return await db.query(query);
     }
 
     /*async findBy(cols) {
@@ -33,12 +65,12 @@ export class UserDAO {
         const encryptedPassword = crypto.createHash("sha1").update(password).digest("hex");
         const db = await UserDB.open();
         const res = await db.query({
-            text: 'SELECT * FROM utilisateurs WHERE identifiant = $1 AND pass = $2;',
+            text: 'SELECT * FROM users WHERE identifiant = $1 AND motpasse = $2;',
             values: [username, encryptedPassword]
         });
-        console.log(res);
         if (res !== undefined && res.rows[0] !== undefined) {
-            return new User(res.rows[0].id, res.rows[0].identifiant, res.rows[0].pass, res.rows[0].nom, res.rows[0].prenom, res.rows[0].avatar, res.rows[0].status, res.rows[0].birthday);
+            await this.setStatus(res.rows[0].id, 1);
+            return new User(res.rows[0].id, res.rows[0].identifiant, res.rows[0].motpasse, res.rows[0].nom, res.rows[0].prenom, res.rows[0].avatar, res.rows[0].status, res.rows[0].birthday);
         }
     }
 }

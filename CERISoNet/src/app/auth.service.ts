@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {NotifierService} from "angular-notifier";
 import {Router} from "@angular/router";
 
@@ -8,7 +8,11 @@ import {Router} from "@angular/router";
 })
 export class AuthService {
 
-  constructor(private httpClient: HttpClient, private notifier: NotifierService, private router: Router) { }
+  public headers: any;
+  public options: any;
+
+  constructor(private httpClient: HttpClient, private notifier: NotifierService, private router: Router) {
+  }
 
   //login method, if res is ok then proceed to store data in local storage and notify user if not notify user with error message
   login(username: string, password: string) {
@@ -39,9 +43,24 @@ export class AuthService {
   }
 
   //Logout method used when user click on 'se déconnecter'
-  logout() {
+  async logout() {
+    this.headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + localStorage.getItem('authDataToken')
+    });
+    this.options = { headers: this.headers };
     //When methods is called remove the token and the Data from the local storage
-    localStorage.removeItem("authData");
-    localStorage.removeItem("authDataToken");
+    try {
+      // @ts-ignore
+      const authData = JSON.parse(await localStorage.getItem('authData'));
+      // @ts-ignore
+      this.httpClient.post('https://localhost:3223/logout', {id: authData._id}, this.options).subscribe( (res: any) => {
+      })
+      localStorage.removeItem("authData");
+      localStorage.removeItem("authDataToken");
+    }
+    catch (error: any) {
+      this.notifier.notify("error", "("+ error.status + ") " + error.error.errorMessage);
+    }
   }
 }

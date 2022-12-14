@@ -3,14 +3,30 @@
 <nav [hidden]="!isNavShown()" class="navbar navbar-light bg-light">
   <div class="container-fluid">
     <div class="col-4">
-      <a class="navbar-brand rounded bg-success p-2 text-gray-500 bg-opacity-75" href="#">
+      <a class="navbar-brand rounded rainbow-btn p-2 text-gray-500" href="#">
         <img src="assets/img/earth-logo-removebg-preview.png" alt="" width="28" height="28" class="d-inline-block align-text-top me-1">
         CERISoNet
       </a>
     </div>
-    <div class="col-6 d-flex justify-content-end align-items-center">
+    <div class="col-6 d-flex justify-content-around align-items-center">
       <div class="col-1 col-md-2 me-1 d-flex justify-content-end">
-        <fa-icon [icon]="faUser"></fa-icon>
+        <div ngbDropdown class="d-inline-block">
+          <fa-icon [icon]="faUser" id="dropdownBasic1" ngbDropdownToggle></fa-icon>
+          <div style="z-index: 10000; width: 300px; left: -100px;" ngbDropdownMenu aria-labelledby="dropdownBasic1">
+            <div *ngFor="let user of listConnectedUser() | async">
+              <hr class="mt-0"/>
+              <div class="row">
+                <div class="col-3 d-flex align-items-center ms-2"><img class="rounded-circle" style="width: 50px; height: 50px;" src="{{ user._avatar }}"></div>
+                <div class="col-8">
+                  <div class="row">
+                    <div class="col-12"><p>{{ user._prenom }} {{ user._nom }}</p></div>
+                    <div class="col-12"><p class="fw-light text-black-50">{{ user._username }}</p></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="col-6 col-md-3 d-flex justify-content-end">
         <button (click)="logout()" class="btn btn-primary">Se Déconnecter</button>

@@ -1,5 +1,6 @@
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~angular-notifier/styles.css";
+@import "node_modules/bootstrap/scss/bootstrap";
 
 /* for the pen */
 html, body {
@@ -47,3 +48,9 @@ html, body {
   100% {transform: translateX(-50%);}
 }
 
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
+
+/* Importing Bootstrap SCSS file. */
+@import '~bootstrap/scss/bootstrap';
