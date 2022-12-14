@@ -42,7 +42,7 @@ registerLocaleData(localeFr, 'fr')
     }),
     FontAwesomeModule,
     NgbModule,
-    SocketIoModule.forRoot({url: environment.url, options: {}})
+    SocketIoModule.forRoot({url: 'https://pedago.univ-avignon.fr:3223', options: {}})
   ],
   providers: [{provide: LOCALE_ID, useValue: 'fr'}],
   bootstrap: [AppComponent]
